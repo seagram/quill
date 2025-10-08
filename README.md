@@ -1,8 +1,19 @@
-# Quill
+<div align="center">
+  <img src="./assets/quill.svg" alt="Quill Logo" width="200">
+  <h1>Quill</h1>
+  Lightweight, modern, extensible markup language for screenplays.
+  
+  <p>
+    <a href="#about">About</a> •
+    <a href="#motivation">Motivation</a> •
+    <a href="#features">Features</a> •
+    <a href="#documentation">Documentation</a> •
+    <a href="#status">Status</a> •
+    <a href="#philosophy">Philosophy</a>
+  </p>
+</div>
 
-A lightweight, extensible markup language for screenplays.
-
-## What is Quill?
+## About
 
 Quill is a plain text markup language for writing screenplays.
 With Quill, you can:
@@ -11,7 +22,7 @@ With Quill, you can:
 - Use version control.
 - Export to industry-standard formats like Fountain and Final Draft.
 
-## Why Quill?
+## Motivation
 
 Quill was created to resolve some limitations of [Fountain](https://github.com/nyousefi/Fountain), the most widely used open-source screenplay markup language.
 
@@ -25,12 +36,12 @@ This forces parsers to "guess" the intent of the writer which can cause unexpect
 This means an unintentional whitespace can change an element from the one you intended to another.
 For example, a newline can change an action block into a character cue.
 
-**Inconsistent syntax**: Fountain syntax is somewhat opinionated. It uses special characters to deliniate elements like `@` for characters, `.` for scene headings and `>` for transitions.
+**Inconsistent syntax**: Fountain syntax is somewhat opinionated. It uses special characters to delineate elements like `@` for characters, `.` for scene headings and `>` for transitions.
 This can make writing in the language feel like an exercise in memory, rather than intuition. There is little extensibility to tailor the language to your specific use case.
 
-**No formal specification**: Fountain lacks a formal grammar specification which makes it difficult to implement language tooling like parsers, validatiors, and formatters.
+**No formal specification**: Fountain lacks a formal grammar specification which makes it difficult to implement language tooling like parsers, validators, and formatters.
 
-## What Quill does differently
+## Features
 
 **Explicit over implicit:** Clear, customizable syntax that doesn't require context to parse.
 
@@ -40,15 +51,15 @@ This can make writing in the language feel like an exercise in memory, rather th
 
 **Backwards compatible**: Quill files can be compiled to Fountain (`.fountain`) or Final Draft (`.fdx`) formats.
 
-## How to use Quill
+## Documentation
 
 ### File Extension
 
-Quill files use the `.ql` extension
+Quill files use the `.ql` extension.
 
 ### Example
 
-```quil
+```quill
 ---
 title: Rebel Without A Cause
 author: Stewart Stern
@@ -101,4 +112,4 @@ Thank you to John August, Nima Yousefi, and Stu Maschwitz for creating Fountain 
 
 ---
 
-Note: Quill is not in any way affiliated with or endorsed by the Foutain project.
+Note: Quill is not in any way affiliated with or endorsed by the Fountain project.
