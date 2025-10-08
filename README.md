@@ -57,15 +57,78 @@ This can make writing in the language feel like an exercise in memory, rather th
 
 Quill files use the `.ql` extension.
 
-### Example
+### Syntax
+
+Quill uses hash-prefixed functions and bracket-based content blocks to define screenplay elements. It resembles markup languages like [Typst](https://github.com/typst/typst).
+
+Each element is defined by prefixing a `#` to its element name or _element identifier_. The element's content is wrapped inside square brackets (`[]`). This is called the _content field_.
+
+#### Example
 
 ```quill
----
-title: Rebel Without A Cause
-author: Stewart Stern
-draft: First Draft
-date: 1955-08-27
----
+#scene[INT. RESTAURANT - NIGHT]
+```
+
+Here, `#scene` is the element identifier and `[INT. RESTAURANT - NIGHT]` is the content field.
+
+Some elements can take parameters. For example, the `#dialogue` element takes a parameter of `character`.
+
+Parameters are supplied in a _parameter field_ defined by square brackets (`[]`) before the content field.
+
+#### Example
+
+```quill
+#dialogue[WAITER][
+  Can I take your order?
+]
+```
+
+Elements can contain nested elements inside them. For example, the `#dialogue` element can contain a nested `#paren` element.
+
+#### Example
+
+```quill
+#dialogue[CUSTOMER][
+  #paren[under breath]
+  About time...
+]
+```
+
+Nested elements are also used for elements like `#dualdialogue`.
+
+#### Example
+
+```quill
+#dualdialogue[
+  #dialogue[MAN 1][Wow, look at that!]
+  #dialogue[MAN 2][I can't believe it!]
+]
+```
+
+Nested elements can have their own nested elements and so on and so forth.
+
+```quill
+#dualdialogue[
+  #dialogue[MAN 1][
+    #paren[laughs]
+    Ha! I told you!
+  ]
+  #dialogue[MAN 2][
+    #paren[over shoulder]
+    You tricked me!
+  ]
+]
+```
+
+### Example Screenplay
+
+```quill
+#titlepage[
+  #title[Rebel Without A Cause]
+  #author[Stewart Stern]
+  #draft[First Draft]
+  #date[1955-08-27]
+]
 
 #scene[INT. POLICE STATION - NIGHT]
 
@@ -113,3 +176,7 @@ Thank you to John August, Nima Yousefi, and Stu Maschwitz for creating Fountain 
 ---
 
 Note: Quill is not in any way affiliated with or endorsed by the Fountain project.
+
+```
+
+```
