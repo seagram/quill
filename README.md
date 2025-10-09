@@ -176,7 +176,3 @@ Thank you to John August, Nima Yousefi, and Stu Maschwitz for creating Fountain 
 ---
 
 Note: Quill is not in any way affiliated with or endorsed by the Fountain project.
-
-```
-
-```
