@@ -1,178 +1,123 @@
 <div align="center">
   <img src="./assets/quill.svg" alt="Quill Logo" width="200">
   <h1>Quill</h1>
-  Lightweight, modern, extensible markup language for screenplays.
-  
+  A fast, modern toolchain for writing screenplays.
   <p>
     <a href="#about">About</a> •
-    <a href="#motivation">Motivation</a> •
-    <a href="#features">Features</a> •
-    <a href="#documentation">Documentation</a> •
+    <a href="#tools">Tools</a> •
     <a href="#status">Status</a> •
-    <a href="#philosophy">Philosophy</a>
+    <a href="#acknowledgements">Acknowledgements</a>
   </p>
 </div>
 
 ## About
 
-Quill is a plain text markup language for writing screenplays.
-With Quill, you can:
+Quill is a modern toolkit for Fountain-based screenplay workflows.
 
-- Write in plain text.
-- Use version control.
-- Export to industry-standard formats like Fountain and Final Draft.
+> **What is Fountain?**
+>
+> [Fountain](https://fountain.io) is a markup language for writing screenplays in plain text.
+> It's open source, human-readable, and version-control-friendly.
 
-## Motivation
+## Tools
 
-Quill was created to resolve some limitations of [Fountain](https://github.com/nyousefi/Fountain), the most widely used open-source screenplay markup language.
+Quill provides the following command-line tools:
 
-### Problems with Fountain
+### Init
 
-**Ambiguous parsing rules:** Fountain relies heavily on implicit syntax and context-dependent parsing.
-The result is a language with lots of edge cases and inconsistent behaviour.
-This forces parsers to "guess" the intent of the writer which can cause unexpected results.
+Create a new Fountain screenplay with a starter template including title page, scene headings, and section structure.
 
-**Whitespace sensitivity**: Fountain's whitespace sensitivity treats every carriage return as intentional.
-This means an unintentional whitespace can change an element from the one you intended to another.
-For example, a newline can change an action block into a character cue.
+```bash
+# Create screenplay with default template
+quill init
 
-**Inconsistent syntax**: Fountain syntax is somewhat opinionated. It uses special characters to delineate elements like `@` for characters, `.` for scene headings and `>` for transitions.
-This can make writing in the language feel like an exercise in memory, rather than intuition. There is little extensibility to tailor the language to your specific use case.
-
-**No formal specification**: Fountain lacks a formal grammar specification which makes it difficult to implement language tooling like parsers, validators, and formatters.
-
-## Features
-
-**Explicit over implicit:** Clear, customizable syntax that doesn't require context to parse.
-
-**Extensible by design**: Supports custom metadata and nested elements.
-
-**Formal specification**: A proper grammar, enabling consistent parsing across implementations.
-
-**Backwards compatible**: Quill files can be compiled to Fountain (`.fountain`) or Final Draft (`.fdx`) formats.
-
-## Documentation
-
-### File Extension
-
-Quill files use the `.ql` extension.
-
-### Syntax
-
-Quill uses hash-prefixed functions and bracket-based content blocks to define screenplay elements. It resembles markup languages like [Typst](https://github.com/typst/typst).
-
-Each element is defined by prefixing a `#` to its element name or _element identifier_. The element's content is wrapped inside square brackets (`[]`). This is called the _content field_.
-
-#### Example
-
-```quill
-#scene[INT. RESTAURANT - NIGHT]
+# Interactive mode - prompts for title page information
+quill init -i
 ```
 
-Here, `#scene` is the element identifier and `[INT. RESTAURANT - NIGHT]` is the content field.
+### Parser
 
-Some elements can take parameters. For example, the `#dialogue` element takes a parameter of `character`.
+Parse Fountain files into an abstract syntax tree (AST) for screenplay analysis.
 
-Parameters are supplied in a _parameter field_ defined by square brackets (`[]`) before the content field.
+```bash
+# Human-readable tree view (default)
+quill parse script.fountain
 
-#### Example
+# JSON output
+quill parse script.fountain --format json
 
-```quill
-#dialogue[WAITER][
-  Can I take your order?
-]
+# Compact JSON (no whitespace)
+quill parse script.fountain --format compact
 ```
 
-Elements can contain nested elements inside them. For example, the `#dialogue` element can contain a nested `#paren` element.
+### Linter
 
-#### Example
+Detect formatting issues and styling errors that differ from conventional Fountain syntax.
 
-```quill
-#dialogue[CUSTOMER][
-  #paren[under breath]
-  About time...
-]
+```bash
+quill lint script.fountain
 ```
 
-Nested elements are also used for elements like `#dualdialogue`.
+### Formatter
 
-#### Example
+Automatically format your Fountain files to the standard Fountain specification.
 
-```quill
-#dualdialogue[
-  #dialogue[MAN 1][Wow, look at that!]
-  #dialogue[MAN 2][I can't believe it!]
-]
+```bash
+quill format script.fountain
 ```
 
-Nested elements can have their own nested elements and so on and so forth.
+### Export
 
-```quill
-#dualdialogue[
-  #dialogue[MAN 1][
-    #paren[laughs]
-    Ha! I told you!
-  ]
-  #dialogue[MAN 2][
-    #paren[over shoulder]
-    You tricked me!
-  ]
-]
+Convert Fountain screenplays to PDF or Final Draft format.
+
+```bash
+quill export script.fountain --format pdf
+quill export script.fountain --format fdx
 ```
 
-### Example Screenplay
+### Live Preview
 
-```quill
-#titlepage[
-  #title[Rebel Without A Cause]
-  #author[Stewart Stern]
-  #draft[First Draft]
-  #date[1955-08-27]
-]
+View your screenplay in a browser with real-time updates as you edit.
 
-#scene[INT. POLICE STATION - NIGHT]
-
-#action[The juvenile division. JIM STARK, seventeen, lies on a bench, drunk.]
-
-#action[A JUVENILE OFFICER approaches JIM.]
-
-#dialogue[OFFICER][
-  All right, kid. On your feet.
-]
-
-#transition[CUT TO:]
-
-#scene[INT. RAY'S OFFICE - CONTINUOUS]
-
-#action[
-  Jim slumps into the chair across from him.
-]
-
-#dialogue[RAY][
-  What's the story this time, Jim?
-]
-
-#dialogue[JIM][
-  #paren[mumbled]
-  No story. Just celebrating.
-]
+```bash
+quill preview script.fountain
 ```
+
+### LSP Server
+
+Language Server Protocol implementation for real-time diagnostics, formatting, and editor integration.
+
+```bash
+quill server
+```
+
+### Stats
+
+Generate a detailed report about your screenplay.
+
+```bash
+quill stats script.fountain
+```
+
+**Statistics include:**
+
+- Page count and estimated runtime
+- Scene breakdown (count, average length, location distribution)
+- Dialogue distribution per character
+- Action vs. dialogue ratio
+- Character appearances and scene presence
+- Scene transitions analysis
+- Day/night scene ratio
+- Interior/exterior location breakdown
 
 ## Status
 
-Quill is still under active development. The final specification has yet to be formalized.
-
-## Philosophy
-
-1. Plain text forever - No proprietary formats, no lock-in.
-2. Human-readable first - It should write and read like a screenplay.
-3. Explicit over implicit - Prioritize clarity over context.
-4. Extensible by design - Easy to parse, validate, and transform.
+Quill is in a pre-alpha stage and is currently under active development.
 
 ## Acknowledgements
 
-Thank you to John August, Nima Yousefi, and Stu Maschwitz for creating Fountain and pioneering open-source software in the screenwriting industry.
+Thank you to John August, Nima Yousefi, and Stu Maschwitz for creating the Fountain specification and pioneering open-source software in the screenwriting industry.
 
 ---
 
-Note: Quill is not in any way affiliated with or endorsed by the Fountain project.
+**Note:** Quill is not in any way affiliated with or endorsed by the Fountain project.
